@@ -1,0 +1,12 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/Anomaly_Detection_Forest_Cover/index.html",
+      "/posts/Classification/index.html",
+      "/posts/Clustering/index.html",
+      "/posts/Linear_and_Non_Linear_Regression/index.html",
+      "/posts/Probability_theory_and_random_variables/index.html"
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+---
+title: "About"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/aruj-nayak-873187191/
+    - icon: github
+      text: Github
+      href: https://github.com/arujthecurator
+
+---
+
+Hello, my name is Aruj Nayak. I am a results-driven software developer with a strong educational background, holding a Master's and a Bachelor's degree in Computer Science & Applications. Proficient in languages like C++, Python, and Java, I bring a diverse skill set to software development. My experience involves leading teams, optimizing workflows, and achieving significant improvements in internal software systems. My commitment to continuous learning reflects in my versatile project portfolio. Eager to contribute my technical proficiency and problem-solving skills to impactful software development and machine learning projects.

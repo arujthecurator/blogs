@@ -1,0 +1,81 @@
+---
+title: "Probability theory and random variables: Bayesian Networks"
+author: "Aruj Nayak"
+date: "2023-12-06"
+categories: [Probability theory & Random Variables]
+image: probability.jpg
+---
+# Probability theory and random variables: Bayesian Networks
+
+# Introduction:
+Bayesian Networks, often referred to as Bayesian Belief Networks, are powerful probabilistic graphical models used to analyze and represent complex systems. Rooted in probability theory, these models provide a structured approach to capture intricate relationships among variables.
+
+# Nodes, Variables, and Conditional Probability Tables (CPTs):
+In Bayesian Networks, nodes represent random variables, and edges indicate probabilistic dependencies, forming a Directed Acyclic Graph (DAG). Each node is associated with a Conditional Probability Table (CPT), detailing the conditional probabilities of a variable given its parent variables. These tables encode the probabilistic relationships inherent in the network.
+
+# Directed Acyclic Graph (DAG):
+The network structure follows a Directed Acyclic Graph, ensuring no cycles. This acyclic structure facilitates efficient inference and minimizes logical inconsistencies.
+
+# Inference:
+Bayesian Networks enable probabilistic inference, computing probabilities for unobserved variables given observed evidence. This functionality proves valuable for decision-making and handling uncertainty.
+
+# Bayesian Network for Car Evaluations:
+Consider assessing cars dataset based on buying price, maintenance cost, number of doors, persons capacity, luggage boot size, and safety rating. A Bayesian Network models the probabilistic dependencies between these variables as is demonstrated by the following code snippet-
+
+``` {python}
+import daft
+from pgmpy.models import BayesianNetwork  # Update the import statement
+from pgmpy.inference import VariableElimination
+import pandas as pd
+
+# Load the Car Evaluation dataset from UCI ML Repository
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data"
+column_names = ["buying", "maint", "doors", "persons", "lug_boot", "safety", "class"]
+data = pd.read_csv(url, names=column_names)
+
+# Define the structure of the Bayesian Network
+model = BayesianNetwork([('buying', 'class'), ('maint', 'class'), ('doors', 'class'),
+                          ('persons', 'class'), ('lug_boot', 'class'), ('safety', 'class')])
+
+# Fit the Bayesian Network using the dataset
+model.fit(data)
+
+# Render the Bayesian Network using daft
+pgm = daft.PGM()
+
+pgm.add_node("buying", r"buying", 1, 1)
+pgm.add_node("maint", r"maint", 2, 1)
+pgm.add_node("doors", r"doors", 3, 1)
+pgm.add_node("persons", r"persons", 4, 1)
+pgm.add_node("lug_boot", r"lug_boot", 5, 1)
+pgm.add_node("safety", r"safety", 6, 1)
+pgm.add_node("class", r"class", 3.5, 2)
+
+pgm.add_edge("buying", "class")
+pgm.add_edge("maint", "class")
+pgm.add_edge("doors", "class")
+pgm.add_edge("persons", "class")
+pgm.add_edge("lug_boot", "class")
+pgm.add_edge("safety", "class")
+
+# Render the Bayesian Network
+pgm.render()
+pgm.show()
+
+# Perform inference to predict the class given evidence
+inference = VariableElimination(model)
+result = inference.query(variables=['class'], evidence={'buying': 'vhigh', 'maint': 'vhigh'})
+
+print(result)
+```
+
+In the above example, the "Car Evaluation" dataset from the UCI Machine Learning Repository informs the Bayesian Network. Features like buying price and maintenance cost predict the acceptability class of cars, showcasing practical Bayesian Network applications. Visualizing the Bayesian Network using the daft library provides an intuitive representation of the network structure
+
+# Conclusion:
+
+Bayesian Networks stand out as a robust framework for modeling uncertainty and aiding informed decision-making. Their graphical representation offers an intuitive understanding of complex systems and facilitates predictions based on observed evidence. Applied across diverse domains, from healthcare to finance, Bayesian Networks remain valuable tools for probabilistic modeling and reasoning.
+
+# Dataset Source:
+The dataset used in this blog is sourced from the UCI Machine Learning Repository -[UCI Machine Learning Repository-Car_Dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data). It provides information about car features and their acceptability class.
+
+The Image is taken from- [https://www.turing.com/kb/an-overview-of-bayesian-networks-in-ai](https://www.turing.com/kb/an-overview-of-bayesian-networks-in-ai)

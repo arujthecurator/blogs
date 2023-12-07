@@ -1,0 +1,117 @@
+---
+title: "Linear and Non-Linear Regression"
+author: "Aruj Nayak"
+date: "2023-12-06"
+categories: [Linear & Non-Linear Regression]
+image: "regression.jpg"
+---
+
+# Exploring Linear and Non-linear Regression in Machine Learning
+
+# Introduction:
+
+Linear and non-linear regression are essential techniques in the realm of machine learning and statistics, commonly utilized for predicting numerical values based on input features. In this blog, we delve into the core concepts of linear and non-linear regression and provide practical examples using two prominent algorithms: Support Vector Machine (SVM) for linear regression and Gradient Boosting Regressor for non-linear regression.
+
+# Linear Regression:
+
+Linear regression is a straightforward and interpretable method used for modeling the relationship between a dependent variable and one or more independent variables. This method assumes a linear relationship, signifying that the change in the dependent variable is proportionate to the change in the independent variables. The equation for simple linear regression can be expressed as:
+
+\[ y = mx + b \]
+
+Here:
+- \( y \): Dependent variable
+- \( x \): Independent variable
+- \( m \): Slope of the line
+- \( b \): Y-intercept
+
+# Implementation:
+In this blog, we implemented linear regression using the scikit-learn library with the Support Vector Machine (SVM) algorithm. In this context, SVM with a linear kernel functions as a linear regressor. We utilized the "diamonds" dataset from seaborn, considering attributes such as carat, depth, table, and dimensions (x, y, z) to predict diamond prices. The following code snippet demonstrates this-
+
+``` {python}
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import seaborn as sns
+
+# Load the diamonds dataset
+diamonds = sns.load_dataset("diamonds")
+
+# Select features and target variable
+X = diamonds[['carat', 'depth', 'table', 'x', 'y', 'z']]
+y = diamonds['price']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the support vector regressor with linear kernel
+linear_svm_model = SVR(kernel='linear')
+linear_svm_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred_linear_svm = linear_svm_model.predict(X_test)
+
+# Evaluate the model
+r2_linear_svm=r2_score(y_test,y_pred_linear_svm)
+print(f"r2 score (Linear SVM): {r2_linear_svm}")
+```
+
+The actual vs predicted labels for the test data predicted by this model can be visualized in order to understand how good our model is performing-
+
+``` {python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Visualize predicted vs actual for linear regression
+plt.scatter(y_test, y_pred_linear_svm, alpha=0.5, label='Actual vs Predicted')
+plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, y_pred_linear_svm, 1))(np.unique(y_test)), color='red', label='Best Fit Line')
+plt.title("Linear Regression: Predicted vs Actual")
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.legend()
+plt.show()
+```
+
+# Non-Linear Regression-
+
+While linear regression is effective for linear relationships, real-world scenarios often involve non-linear patterns. Non-linear regression extends the concept to model relationships where the change in the dependent variable is not proportional to the change in the independent variables.
+
+# Implementation-
+
+For non-linear regression, we employed the Gradient Boosting Regressor, an ensemble method that combines weak learners to create a robust predictive model. Using the same "diamonds" dataset, this algorithm can capture intricate patterns in the data. Following code show the implementation of this model-
+
+``` {python}
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import r2_score
+
+# Create and train the gradient boosting regressor
+gradient_boosting_model = GradientBoostingRegressor(n_estimators=100, random_state=42)
+gradient_boosting_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred_gradient_boosting = gradient_boosting_model.predict(X_test)
+
+# Evaluate the model
+r2_gradient_boosting=r2_score(y_test,y_pred_gradient_boosting)
+print(f"r2 score (Gradient Boosting): {r2_gradient_boosting}")
+```
+
+And just like linear regression, we can visualize the predictions made by this model-
+``` {python}
+# Visualize predicted vs actual for non-linear regression
+plt.scatter(y_test, y_pred_gradient_boosting, alpha=0.5, label='Actual vs Predicted')
+plt.plot(np.unique(y_test), np.poly1d(np.polyfit(y_test, y_pred_gradient_boosting, 1))(np.unique(y_test)), color='red', label='Best Fit Line')
+plt.title("Non-linear Regression: Predicted vs Actual")
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.legend()
+plt.show()
+```
+
+# Conclusion:
+Thus, linear and non-linear regression are versatile tools for modeling relationships in data. Linear regression provides simplicity and interpretability, making it suitable for scenarios with linear dependencies. Conversely, non-linear regression techniques, like the Gradient Boosting Regressor, offer the flexibility to capture complex patterns in the data, making them valuable in various applications.
+
+When working with real-world datasets, understanding the nature of relationships within the data is crucial for choosing the appropriate regression model. Linear and non-linear regression methods complement each other, enabling data scientists and analysts to address a diverse array of predictive modeling tasks with precision and accuracy.
+
+# Source:
+
+The image is taken from- [https://www.skillshare.com/en/classes/Data-Analysis-What-is-Non-Linear-Regression/694158109](https://www.skillshare.com/en/classes/Data-Analysis-What-is-Non-Linear-Regression/694158109)

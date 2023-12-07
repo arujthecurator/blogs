@@ -1,0 +1,29 @@
+{
+  "index.qmd": {
+    "index.html": "f3aab411"
+  },
+  "about.qmd": {
+    "about.html": "de3e832b"
+  },
+  "posts/post-with-code/index.qmd": {
+    "index.html": "5c15e335"
+  },
+  "posts/welcome/index.qmd": {
+    "index.html": "ee498938"
+  },
+  "posts/Anomaly_Detection_Forest_Cover/index.qmd": {
+    "index.html": "492cef84"
+  },
+  "posts/Classification/index.qmd": {
+    "index.html": "96aa5a25"
+  },
+  "posts/Clustering/index.qmd": {
+    "index.html": "c3c3bdfd"
+  },
+  "posts/Probability_theory_and_random_variables/index.qmd": {
+    "index.html": "3891819e"
+  },
+  "posts/Linear_and_Non_Linear_Regression/index.qmd": {
+    "index.html": "ba9f06cb"
+  }
+}
